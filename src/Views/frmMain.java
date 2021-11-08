@@ -372,12 +372,22 @@ public class frmMain extends javax.swing.JFrame {
         jMenuItem10.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jMenuItem10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_money_40px.png"))); // NOI18N
         jMenuItem10.setText("Lương Nhân Viên Thử Việc");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem10);
         jMenu6.add(jSeparator12);
 
         jMenuItem11.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jMenuItem11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_paycheque_40px.png"))); // NOI18N
         jMenuItem11.setText("Lương Nhân Viên Chính Thức");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem11);
 
         jMenu3.add(jMenu6);
@@ -390,6 +400,11 @@ public class frmMain extends javax.swing.JFrame {
         jMenuItem12.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_money_bag_40px.png"))); // NOI18N
         jMenuItem12.setText("Bảng Lương Công Ty");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem12);
         jMenu7.add(jSeparator13);
 
@@ -528,6 +543,30 @@ public class frmMain extends javax.swing.JFrame {
             Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem13ActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        BangLuongNVTV tl = new BangLuongNVTV();
+        Desktop.add(tl);
+         tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
+         tl.setVisible(true);
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        // TODO add your handling code here:
+        BangLuongNVCT tl = new BangLuongNVCT();
+        Desktop.add(tl);
+         tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
+         tl.setVisible(true);
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        // TODO add your handling code here:
+        BangLuong tl = new BangLuong();
+        Desktop.add(tl);
+         tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
+         tl.setVisible(true);
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**
      * @param args the command line arguments
