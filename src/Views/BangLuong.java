@@ -4,13 +4,25 @@
  * and open the template in the editor.
  */
 package Views;
+import Controller.Connects;
 import Controller.Luong_controller;
+import static Controller.Luong_controller.conn;
+import static Controller.Luong_controller.pstate;
+import static Controller.Luong_controller.sql;
+import static QLNS.QLNS.dbUrl;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
@@ -27,6 +39,13 @@ public final class BangLuong extends javax.swing.JInternalFrame {
     List<tblLuong> arr = new ArrayList<>();
     boolean ktThem;
     String macu;
+        Connects cn = new Connects();
+    public Connection conn;
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+    int currentDate= Calendar.getInstance().get(Calendar.DATE);
 //    private int tiet;
     /**
      * Creates new form mdiBangLuong
@@ -36,8 +55,12 @@ public final class BangLuong extends javax.swing.JInternalFrame {
         tbldanhsach = (DefaultTableModel) dgdanhsach.getModel();
         LayNguon();
         XoaTrang();
-        KhoaMo(true);
+        KhoaMo(false);
         DeginTable();
+         calendar.set(currentYear , currentMonth , currentDate);
+         date.setTime(calendar.getTimeInMillis());
+         dcNgayNhap.setDate(date);
+          dcNgaySua.setDate(date);
     }
 
     
@@ -68,28 +91,31 @@ public final class BangLuong extends javax.swing.JInternalFrame {
         });
     }
     
-    
-    Date d = new Date();
      public void XoaTrang(){
         txtLuongCB.setText("");
         txtPCChucVu.setText("");
         txtGhiChu.setText("");
         txtMaLuong.setText("");
         
-        dcNgayNhap.setDate(d);
-        dcNgaySua.setDate(d);
+        calendar.set(currentYear , currentMonth , currentDate);
+         date.setTime(calendar.getTimeInMillis());
+         dcNgayNhap.setDate(date);
+          dcNgaySua.setDate(date);
     }
      
     public void KhoaMo(boolean b){
         btnKhong.setEnabled(b);
-        btnThem.setEnabled(b);
-        btnSua.setEnabled(b);
-        btnThoat.setEnabled(b);
-        
-        btnGhi.setEnabled(!b);
+        btnThem.setEnabled(!b);
+        btnSua.setEnabled(!b);
+        btnThoat.setEnabled(!b);
+        btnGhi.setEnabled(b);
         btnXoa.setEnabled(!b);
-        
-//        dgdanhsach.setEnabled(b);
+        txtMaLuong.setEditable(b);
+        txtLuongCB.setEditable(b);
+        txtPCChucVu.setEditable(b);
+        txtGhiChu.setEditable(b);
+        dcNgayNhap.setEnabled(b);
+        dcNgaySua.setEnabled(b);
     }
     
     
@@ -191,62 +217,58 @@ public final class BangLuong extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel4)
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtPCChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLuongCB, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMaLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel11)
                     .addComponent(jLabel12)
-                    .addComponent(jLabel16))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel16)
+                        .addComponent(jLabel11)))
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(dcNgaySua, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                    .addComponent(dcNgayNhap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dcNgayNhap, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                    .addComponent(dcNgaySua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtGhiChu))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(5, 5, 5)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(txtMaLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(32, 32, 32))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addGap(24, 24, 24)))
-                                .addComponent(jLabel11))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(dcNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(17, 17, 17)
-                                .addComponent(dcNgaySua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtGhiChu)
-                            .addComponent(jLabel16)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dcNgayNhap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtMaLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
+                        .addComponent(jLabel12)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtLuongCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel11))
+                    .addComponent(dcNgaySua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtGhiChu)
+                        .addComponent(jLabel16))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtLuongCB, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPCChucVu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -308,7 +330,7 @@ public final class BangLuong extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                     .addComponent(btnGhi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -329,10 +351,11 @@ public final class BangLuong extends javax.swing.JInternalFrame {
                     .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnKhong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnThoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGhi, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnKhong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGhi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel5.setBackground(new java.awt.Color(51, 255, 255));
@@ -396,47 +419,104 @@ public final class BangLuong extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-       KhoaMo(true);
+       ktThem = true;
+        KhoaMo(true);
         XoaTrang();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
- if(txtLuongCB.getText().length()<=0)
-        return ;
+        if(txtMaLuong.getText().isEmpty()){
+                return;
+        }else if(txtMaLuong.getText().length()>0){
+                macu = txtMaLuong.getText();
+        }
         ktThem=false;
-        KhoaMo(false);
+        KhoaMo(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnGhiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiActionPerformed
+        if(ktThem == true){
+            try {
+                if(txtMaLuong.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập Lương ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                    txtMaLuong.requestFocus();
+                    return;
+                }else if(txtPCChucVu.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập phụ cấp ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                    txtPCChucVu.requestFocus();
+                }else if(txtLuongCB.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập phụ cấp ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                    txtLuongCB.requestFocus();
+                }else{
+                    conn=DriverManager.getConnection(dbUrl);
+                    sql ="Insert into TblBangLuongCTy(MaLuong,LCB,PCChucVu,"
+                            + "NgayNhap,NgaySua,GhiChu)"
+                            + " values (?,?,?,?,?,?) ";
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                   pstate = conn.prepareStatement(sql);
+                   pstate.setString(1, txtMaLuong.getText());
+                   pstate.setString(2,  txtLuongCB.getText());
+                   pstate.setString(3, txtPCChucVu.getText());
+                   String d = sdf.format(dcNgayNhap.getDate());
+                   pstate.setString(4, d);
+                   String d1 = sdf.format(dcNgaySua.getDate());
+                   pstate.setString(5,  d1);
+                   pstate.setString(6, txtGhiChu.getText());
+                   pstate.execute();
+                   conn.close();
+                   pstate.close();
+                   JOptionPane.showMessageDialog(this, "Thêm thành công!!!","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                   DefaultTableModel model = (DefaultTableModel) dgdanhsach.getModel();
+                   model.setRowCount(0);
+                   LayNguon();
+                }
 
-        if(txtMaLuong.getText().length()<=0){
-            JOptionPane.showMessageDialog(this,"Bạn chưa nhập Lương ","Thông Báo",JOptionPane.WARNING_MESSAGE);
-            txtMaLuong.requestFocus();
-            return;
+            } catch (SQLException ex) {
+                Logger.getLogger(BangLuong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+                 try {
+                if(txtMaLuong.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập Lương ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                    txtMaLuong.requestFocus();
+                    return;
+                }else if(txtPCChucVu.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập phụ cấp ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                    txtPCChucVu.requestFocus();
+                }else if(txtLuongCB.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập phụ cấp ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                    txtLuongCB.requestFocus();
+                }else{
+                    conn=DriverManager.getConnection(dbUrl);
+                    sql ="Update TblBangLuongCTy Set LCB=?,PCChucVu=?,"
+                            + "NgayNhap=?, NgaySua = ? ,GhiChu=? where MaLuong = ?";
+                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    pstate = conn.prepareStatement(sql);
+                    pstate.setString(1,  txtLuongCB.getText());
+                    pstate.setString(2,  txtPCChucVu.getText());
+                     String d = sdf.format(dcNgayNhap.getDate());
+                    pstate.setString(3,  d);
+                    String d1 = sdf.format(dcNgaySua.getDate());
+                    pstate.setString(4, d1);      
+                    pstate.setString(5, txtGhiChu.getText());
+                    pstate.setString(6,  macu);
+                    pstate.execute();
+                    conn.close();
+                    pstate.close();
+                   JOptionPane.showMessageDialog(this, "Sửa thành công!!!","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                   DefaultTableModel model = (DefaultTableModel) dgdanhsach.getModel();
+                   model.setRowCount(0);
+                   LayNguon();
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(BangLuong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
+                
         }
 
-        if(txtPCChucVu.getText().length()<=0){
-            JOptionPane.showMessageDialog(this,"Bạn chưa nhập phụ cấp ","Thông Báo",JOptionPane.WARNING_MESSAGE);
-            txtPCChucVu.requestFocus();
-        }
-
-        if(txtLuongCB.getText().length()<=0){
-            JOptionPane.showMessageDialog(this,"Bạn chưa nhập phụ cấp ","Thông Báo",JOptionPane.WARNING_MESSAGE);
-            txtLuongCB.requestFocus();
-        }
-
-        
-
-        //    SimpleDateFormat df = new SimpleDateFormat ("dd-MM-yyyy");
-        
-//        PC = Integer.parseInt(txtPCChucVu.getText());
-//        LCB = Integer.parseInt(txtPCChucVu.getText());
-//        NgayNhap = (dcNgayNhap.getDate());
-//        NgaySua = (dcNgaySua.getDate());
-//        GhiChu = txtGhiChu.getText();
-//        MaLuong = txtMaLuong.getText();   
-//        tblLuong luong = new tblLuong(MaLuong,LCB, PC, NgayNhap, NgaySua, macu, GhiChu);
-        KhoaMo(true);
+       
     }//GEN-LAST:event_btnGhiActionPerformed
 
     private void btnThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThoatActionPerformed
@@ -447,13 +527,31 @@ public final class BangLuong extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThoatActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        txtMaLuong.setText(String.valueOf(MaLuong));
-        int kq = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?", "Thông báo", JOptionPane.YES_NO_OPTION);
-
-        if (kq == JOptionPane.YES_OPTION) {
-            Luong_controller.Xoa(MaLuong);
-            XoaTrang();
-            LayNguon();
+         
+        if(txtMaLuong.getText().isEmpty()){
+             JOptionPane.showMessageDialog(this, "Không Được Để Trống Mã Lương","Thông báo", JOptionPane.WARNING_MESSAGE);
+        }else{
+            try {
+                int message = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?","Thông báo",JOptionPane.YES_NO_OPTION);
+                if(message == JOptionPane.YES_OPTION){ 
+                    conn=DriverManager.getConnection(dbUrl);
+                    sql="Delete From TblBangLuongCTy Where MaLuong=?";
+                    pstate=conn.prepareStatement(sql);
+                    pstate.setString(1, txtMaLuong.getText());
+                    pstate.execute();
+                    pstate.close();; conn.close();
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!!!","Thông báo", JOptionPane.INFORMATION_MESSAGE); 
+                    DefaultTableModel model = (DefaultTableModel) dgdanhsach.getModel();
+                    model.setRowCount(0);
+                     LayNguon();
+                }else{
+                    return;
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(BangLuong.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!","Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -461,43 +559,28 @@ public final class BangLuong extends javax.swing.JInternalFrame {
         XoaTrang();
         KhoaMo(false);
         ktThem=true;
-        //        txtMaLuong.requestFocus();
-        //        txtHoTen.requestFocus();
-        //        txtLCB.requestFocus();
-        //        txtPhuCap.requestFocus();
-        //        txtPCK.requestFocus();
-        //        txtNam.requestFocus();
-        //        txtKyLuat.requestFocus();
-        //        txtNgayNghi.requestFocus();
-        //        txtThang.requestFocus();
-        //        txtNgayCong.requestFocus();
-        //        txtGioLamThem.requestFocus();
-        //        txtGhiChu.requestFocus();
-        //        txtThuong.requestFocus();
-        //        txtTong.requestFocus();
         txtMaLuong.requestFocus();
     }//GEN-LAST:event_btnKhongActionPerformed
 
     private void dgdanhsachMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dgdanhsachMouseClicked
-//        int index = dgdanhsach.getSelectedRow();
-//            TableModel model = dgdanhsach.getModel();
-//            LCB = Integer.parseInt(model.getValueAt(index, 1).toString());
-//            PC = Integer.parseInt(model.getValueAt(index, 2).toString());
-//            MaLuong = model.getValueAt(index, 0).toString();
-//        try {
-// 
-//            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(model.getValueAt(index, 3).toString());
-//            dcNgayNhap.setDate(date);
-//            Date d = new SimpleDateFormat("yyyy-MM-dd").parse(model.getValueAt(index, 4).toString());
-//            dcNgaySua.setDate(d);
-//            GhiChu = model.getValueAt(index, 5).toString();
-//        } catch (ParseException ex) {
-//            java.util.logging.Logger.getLogger(BangLuong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//            txtLuongCB.setText(String.valueOf(LCB));
-//            txtPCChucVu.setText(String.valueOf(LCB));
-//            txtGhiChu.setText(GhiChu);
-//            txtMaLuong.setText(MaLuong);
+        int i = dgdanhsach.getSelectedRow();
+        TableModel model = dgdanhsach.getModel();
+         txtMaLuong.setText(dgdanhsach.getValueAt(i, 0).toString());
+         txtLuongCB.setText(dgdanhsach.getValueAt(i, 1).toString());
+         txtPCChucVu.setText(dgdanhsach.getValueAt(i, 2).toString());
+          try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dgdanhsach.getValueAt(i, 3).toString());
+            dcNgayNhap.setDate(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(frmCoBan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(dgdanhsach.getValueAt(i, 4).toString());
+            dcNgaySua.setDate(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(frmCoBan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           txtGhiChu.setText(dgdanhsach.getValueAt(i, 5).toString());
     }//GEN-LAST:event_dgdanhsachMouseClicked
 
 

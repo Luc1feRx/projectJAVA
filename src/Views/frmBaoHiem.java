@@ -35,6 +35,11 @@ public class frmBaoHiem extends javax.swing.JInternalFrame {
     
     Connects cn = new Connects();
     public Connection conn;
+    Date date = new Date();
+    Calendar calendar = Calendar.getInstance();
+    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+    int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+    int currentDate= Calendar.getInstance().get(Calendar.DATE);
     public frmBaoHiem() throws SQLException {
         initComponents();
         tblBaoHiem = (DefaultTableModel) dgDanhSachBH.getModel();
@@ -55,11 +60,6 @@ public class frmBaoHiem extends javax.swing.JInternalFrame {
             }
         });
          //set date = thời gian hiện tại
-            Date date = new Date();
-            Calendar calendar = Calendar.getInstance();
-            int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-            int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-            int currentDate= Calendar.getInstance().get(Calendar.DATE);
             calendar.set(currentYear , currentMonth , currentDate);
             date.setTime(calendar.getTimeInMillis());
             dtNgayCapSo.setDate(date);
@@ -87,6 +87,10 @@ public class frmBaoHiem extends javax.swing.JInternalFrame {
         txtMaLuong.setText("");
         txtNoiCapSo.setText("");
         ComboBoxMaNV.setSelectedIndex(-1);
+        calendar.set(currentYear , currentMonth , currentDate);
+        date.setTime(calendar.getTimeInMillis());
+        dtNgayCapSo.setDate(date);
+        
     }
     public void LayNguon(){
         arr = BaoHiem_Controller.LayNguon();
@@ -162,6 +166,12 @@ public class frmBaoHiem extends javax.swing.JInternalFrame {
         jLabel1.setText("Mã nhân viên");
 
         jLabel2.setText("Mã lương");
+
+        ComboBoxMaNV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboBoxMaNVActionPerformed(evt);
+            }
+        });
 
         txtMaLuong.setEditable(false);
         txtMaLuong.addActionListener(new java.awt.event.ActionListener() {
@@ -416,7 +426,7 @@ public class frmBaoHiem extends javax.swing.JInternalFrame {
                     pstate=conn.prepareStatement(sql);
                     pstate.setString(1, macu);
                     pstate.execute();
-                    pstate.close();; conn.close();
+                    pstate.close(); conn.close();
                     JOptionPane.showMessageDialog(this, "Xóa thành công!!!","Thông báo", JOptionPane.INFORMATION_MESSAGE); 
                     DefaultTableModel model = (DefaultTableModel) dgDanhSachBH.getModel();
                     model.setRowCount(0);
@@ -426,7 +436,7 @@ public class frmBaoHiem extends javax.swing.JInternalFrame {
                 }
                 
             } catch (SQLException ex) {
-                Logger.getLogger(frmCoBan.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmBaoHiem.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(this, "Xóa thất bại!!!","Thông báo", JOptionPane.ERROR_MESSAGE);
             }
         }
@@ -531,6 +541,10 @@ public class frmBaoHiem extends javax.swing.JInternalFrame {
         ktThem=false;
         KhoaMo(true);
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void ComboBoxMaNVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxMaNVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboBoxMaNVActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

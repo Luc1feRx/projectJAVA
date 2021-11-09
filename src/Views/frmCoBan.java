@@ -46,6 +46,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -73,6 +74,11 @@ public class frmCoBan extends javax.swing.JInternalFrame {
     byte[] person_image = null;
     public List<TTNS> dslx = new ArrayList<TTNS>();
     public boolean ktThem;
+                Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+            int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+            int currentDate= Calendar.getInstance().get(Calendar.DATE);
     public frmCoBan() throws SQLException {
         initComponents();
         ttns.RefreshTable("select * from TblTTNVCoBan", TableCoBan);
@@ -109,17 +115,13 @@ public class frmCoBan extends javax.swing.JInternalFrame {
             }
         });
          //set date = thời gian hiện tại
-            Date date = new Date();
-            Calendar calendar = Calendar.getInstance();
-            int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-            int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-            int currentDate= Calendar.getInstance().get(Calendar.DATE);
             calendar.set(currentYear , currentMonth , currentDate);
             date.setTime(calendar.getTimeInMillis());
             
             DateBirth.setDate(date);
             DateNgayHetHan.setDate(date);
             DateNgayKy.setDate(date);
+            DeginTable();
     }
 
     /**
@@ -170,6 +172,7 @@ public class frmCoBan extends javax.swing.JInternalFrame {
         ComboBoxTTHonNhan = new javax.swing.JComboBox<>();
         txtCount = new javax.swing.JTextField();
         txtGhiChu = new javax.swing.JTextField();
+        Dateddd = new com.toedter.calendar.JDateChooser();
         jPanel2 = new javax.swing.JPanel();
         btnSua = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
@@ -377,6 +380,13 @@ public class frmCoBan extends javax.swing.JInternalFrame {
 
         txtGhiChu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+        Dateddd.setDateFormatString("yyyy-MM-dd");
+        Dateddd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                DatedddKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -467,8 +477,11 @@ public class frmCoBan extends javax.swing.JInternalFrame {
                                 .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnDoiAnh)
-                                .addGap(31, 31, 31)))))
-                .addContainerGap(70, Short.MAX_VALUE))
+                                .addGap(31, 31, 31))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(332, 332, 332)
+                        .addComponent(Dateddd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -545,7 +558,9 @@ public class frmCoBan extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtGhiChu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17))
-                        .addGap(49, 49, 49))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Dateddd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(btnDoiAnh, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -630,7 +645,7 @@ public class frmCoBan extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -730,7 +745,7 @@ public class frmCoBan extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         setBounds(0, 0, 1142, 1061);
@@ -793,6 +808,28 @@ public class frmCoBan extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_ComboBoxMaBoPhanMouseExited
 
+      public void DeginTable(){
+        TableCoBan.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableCoBan.getColumnModel().getColumn(0).setPreferredWidth(80);
+        TableCoBan.getColumnModel().getColumn(1).setPreferredWidth(80);
+        TableCoBan.getColumnModel().getColumn(2).setPreferredWidth(80);
+        TableCoBan.getColumnModel().getColumn(3).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(4).setPreferredWidth(80);
+        TableCoBan.getColumnModel().getColumn(5).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(6).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(7).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(8).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(9).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(10).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(11).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(12).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(13).setPreferredWidth(200);
+        TableCoBan.getColumnModel().getColumn(14).setPreferredWidth(200);
+        TableCoBan.getColumnModel().getColumn(15).setPreferredWidth(150);
+        TableCoBan.getColumnModel().getColumn(16).setPreferredWidth(100);
+    }
+    
+    
     public void XoaTrang(){
         ComBoBoxMaPhong.setSelectedIndex(-1);
         ComBoxLoaiHD.setSelectedIndex(-1);
@@ -807,6 +844,12 @@ public class frmCoBan extends javax.swing.JInternalFrame {
         txtHoTen.setText("");
         txtNoiCap.setText("");
         txtThoiGian.setText("");
+          calendar.set(currentYear , currentMonth , currentDate);
+            date.setTime(calendar.getTimeInMillis());
+            
+            DateBirth.setDate(date);
+            DateNgayHetHan.setDate(date);
+            DateNgayKy.setDate(date);
     }
     
     private void btnDoiAnhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoiAnhActionPerformed
@@ -986,7 +1029,9 @@ public class frmCoBan extends javax.swing.JInternalFrame {
                 }
                 
                 String queryins = "insert into TblCongKhoiDieuHanh(MaNV,HoTen,MaLuong) select MaNV,HoTen,MaLuong from TblTTNVCoBan where MaNV='" + txtMaNV.getText() + "'";
-                cn.MakeConnect(queryins);
+                if(!cn.Exitsted(txtMaNV.getText(), "SELECT MaNV FROM TblTTNVCoBan")){
+                        cn.MakeConnect(queryins);
+                }
                 
                 String update22 = "update TblCongKhoiDieuHanh set TenPhong = (select top(1) TenPhong from TblPhongBan a,TblTTNVCoBan b where a.MaPhong=b.MaPhong and a.MaPhong=N'" + ComBoBoxMaPhong.getSelectedItem() + "' group by TenPhong) where MaNV='" + txtMaNV.getText() + "'";
                  cn.MakeConnect(update22); //update tên phòng vào bảng TblCongKhoiDieuHanh tương ứng với mã phòng
@@ -1182,6 +1227,20 @@ public class frmCoBan extends javax.swing.JInternalFrame {
             evt.consume();
         }
     }//GEN-LAST:event_txtCCCDKeyTyped
+
+    private void DatedddKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_DatedddKeyReleased
+        // TODO add your handling code here:
+         try {
+            // TODO add your handling code here:
+            DefaultTableModel model = (DefaultTableModel) TableCoBan.getModel();
+            model.setRowCount(0);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String d = sdf.format(Dateddd.getDate());
+            ttns.RefreshTable("select * from TblTTNVCoBan where NgaySinh like '%" + d + "%'", TableCoBan);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmCoBan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_DatedddKeyReleased
     
     public void KhoaMo(boolean b){
         txtCCCD.setEditable(b);
@@ -1222,6 +1281,7 @@ public class frmCoBan extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser DateBirth;
     private com.toedter.calendar.JDateChooser DateNgayHetHan;
     private com.toedter.calendar.JDateChooser DateNgayKy;
+    private com.toedter.calendar.JDateChooser Dateddd;
     private javax.swing.JTable TableCoBan;
     private javax.swing.JButton btnDoiAnh;
     private javax.swing.JButton btnExcel;

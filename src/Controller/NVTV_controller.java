@@ -35,20 +35,19 @@ public class NVTV_controller {
         state=null;
         try{
         conn=DriverManager.getConnection(dbUrl);
-        sql = "Select * from TblBangCongThuViec Order By MaNV";
+        sql = "Select * from TblBangCongThuViec Order By MaNVTV";
         state = conn.createStatement();
         ResultSet rs =state.executeQuery(sql);
         while(rs.next()){
         tblNVTV temp = new tblNVTV();
-         temp.setTenbp(rs.getString("TenBoPhan"));
          temp.setTenphong(rs.getString("TenPhong"));
          temp.setManvtv(rs.getString("MaNVTV")); 
          temp.setLuongtv(rs.getInt("LuongTViec"));
-         temp.setNgaynhan(rs.getDate("NgayNhanLuong"));
-         temp.setNgaycong(rs.getInt("SoNgayCongThang"));
+         temp.setNgaynhan(rs.getString("NgayNhanLuong"));
+         temp.setNgaycong(rs.getInt("SoNgayCong"));
          temp.setNgaynghi(rs.getInt("SoNgayNghi"));
          temp.setGiolamthem(rs.getInt("SoGioLamThem"));
-         temp.getLuong(rs.getInt("Luong"));
+         temp.setLuong(rs.getInt("Luong"));
          temp.setGhichu(rs.getString("GhiChu"));
          arr.add(temp);
         }
@@ -87,7 +86,6 @@ public class NVTV_controller {
            pstate.setString(2, nvtv.getTenphong());
            pstate.setString(3,  nvtv.getManvtv());
            pstate.setInt(4, nvtv.getLuongtv());
-           pstate.setDate(5, (Date) nvtv.getNgaynhan());
            pstate.setInt(6, nvtv.getNgaycong());
            pstate.setInt(7, nvtv.getNgaynghi());
            pstate.setInt(8, nvtv.getGiolamthem());
@@ -132,8 +130,7 @@ public class NVTV_controller {
            pstate.setString(1, nvtv.getTenbp());
            pstate.setString(2, nvtv.getTenphong());
            pstate.setString(3,  nvtv.getManvtv());    
-           pstate.setInt(4, nvtv.getLuongtv());     
-           pstate.setDate(5, (Date) nvtv.getNgaynhan());      
+           pstate.setInt(4, nvtv.getLuongtv());        
            pstate.setInt(6, nvtv.getNgaycong());
            pstate.setInt(7, nvtv.getNgaynghi());
            pstate.setInt(8, nvtv.getGiolamthem());

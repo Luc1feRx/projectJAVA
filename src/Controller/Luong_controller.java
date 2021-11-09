@@ -27,7 +27,7 @@ public class Luong_controller {
     public static Statement state;
     public static PreparedStatement pstate;
     public static ResultSet rs;
-    public static String sql;
+public static String sql;
     public static List<tblLuong> LayNguon() {
         List<tblLuong> arr = new ArrayList<>();
         conn=null;

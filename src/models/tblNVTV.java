@@ -14,14 +14,9 @@ import java.util.Date;
 public class tblNVTV {
     String tenbp, tenphong, manvtv, ghichu;
     int luongtv, ngaycong, ngaynghi,giolamthem, luong;
-    Date ngaynhan;
+    String ngaynhan;
 
-    public tblNVTV() {
-    }
-
-    public tblNVTV(String tenbp, String tenphong, String manvtv, 
-            int luongtv,Date ngaynhan, int ngaycong, int ngaynghi, int giolamthem,
-            int luong, String ghichu ) {
+    public tblNVTV(String tenbp, String tenphong, String manvtv, String ghichu, int luongtv, int ngaycong, int ngaynghi, int giolamthem, int luong, String ngaynhan) {
         this.tenbp = tenbp;
         this.tenphong = tenphong;
         this.manvtv = manvtv;
@@ -32,6 +27,9 @@ public class tblNVTV {
         this.giolamthem = giolamthem;
         this.luong = luong;
         this.ngaynhan = ngaynhan;
+    }
+
+    public tblNVTV() {
     }
 
     public String getTenbp() {
@@ -54,7 +52,7 @@ public class tblNVTV {
         return manvtv;
     }
 
-    public void setManvtv(String manv) {
+    public void setManvtv(String manvtv) {
         this.manvtv = manvtv;
     }
 
@@ -106,16 +104,15 @@ public class tblNVTV {
         this.luong = luong;
     }
 
-    public Date getNgaynhan() {
+    public String getNgaynhan() {
         return ngaynhan;
     }
 
-    public void setNgaynhan(Date ngaynhan) {
+    public void setNgaynhan(String ngaynhan) {
         this.ngaynhan = ngaynhan;
     }
 
-    public void getLuong(int aInt) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
+   
 
 }
