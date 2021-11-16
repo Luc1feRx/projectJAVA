@@ -350,18 +350,33 @@ public class frmMain extends javax.swing.JFrame {
         jMenuItem7.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_department_40px.png"))); // NOI18N
         jMenuItem7.setText("Bộ Phận");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem7);
         jMenu3.add(jSeparator6);
 
         jMenuItem8.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_home_office_40px.png"))); // NOI18N
         jMenuItem8.setText("Phòng Ban");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem8);
         jMenu3.add(jSeparator10);
 
         jMenuItem9.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jMenuItem9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_group_40px.png"))); // NOI18N
         jMenuItem9.setText("Chức Vụ");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem9);
         jMenu3.add(jSeparator8);
 
@@ -545,15 +560,11 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        try {
-            // TODO add your handling code here:
-            BangLuongNVTV tl = new BangLuongNVTV();
-            Desktop.add(tl);
-            tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
-            tl.setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // TODO add your handling code here:
+        BangLuongNVTV tl = new BangLuongNVTV();
+        Desktop.add(tl);
+        tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
+        tl.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
@@ -571,6 +582,30 @@ public class frmMain extends javax.swing.JFrame {
          tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
          tl.setVisible(true);
     }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        // TODO add your handling code here:
+        View.mdiBoPhan bp = new View.mdiBoPhan();
+        Desktop.add(bp);
+         bp.setLocation((Desktop.getWidth() - bp.getWidth())/20, (Desktop.getHeight()- bp.getHeight())/20);
+         bp.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        // TODO add your handling code here:
+        View.mdiPhongBan bp = new View.mdiPhongBan();
+        Desktop.add(bp);
+         bp.setLocation((Desktop.getWidth() - bp.getWidth())/20, (Desktop.getHeight()- bp.getHeight())/20);
+         bp.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        // TODO add your handling code here:
+        View.mdiChucVu bp = new View.mdiChucVu();
+        Desktop.add(bp);
+         bp.setLocation((Desktop.getWidth() - bp.getWidth())/20, (Desktop.getHeight()- bp.getHeight())/20);
+         bp.setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     /**
      * @param args the command line arguments

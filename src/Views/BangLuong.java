@@ -54,7 +54,6 @@ public final class BangLuong extends javax.swing.JInternalFrame {
         initComponents();
         tbldanhsach = (DefaultTableModel) dgdanhsach.getModel();
         LayNguon();
-        XoaTrang();
         KhoaMo(false);
         DeginTable();
          calendar.set(currentYear , currentMonth , currentDate);
