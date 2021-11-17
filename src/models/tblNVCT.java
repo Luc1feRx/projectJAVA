@@ -12,36 +12,28 @@ import java.util.Date;
  * @author taihd
  */
 public class tblNVCT {
-    String manv, tenphong, hoten, maluong,  ghichu; 
-    int LCB, PC, ngaycong,thuong, ngaynghi, giolamthem,kyluat, luong;
-    Date ngaynhan;
+    String manv, tenphong, hoten, maluong,  ghichu, ngaynhan; 
+    int LCB, PC, Songaycong,thuong, Songaynghi, giolamthem,kyluat;
+    float Luong;
 
-    public tblNVCT(String manv, String tenphong, String hoten, String maluong, 
-            int LCB,int PC,int thuong,int kyluat,Date ngaynhan,
-            int ngaycong,int ngaynghi, 
-            int giolamthem, String ghichu, 
-            int luong ) {
+    public tblNVCT() {
+    }
+
+    public tblNVCT(String manv, String tenphong, String hoten, String maluong, String ghichu, String ngaynhan, int LCB, int PC, int Songaycong, int thuong, int Songaynghi, int giolamthem, int kyluat, float Luong) {
         this.manv = manv;
         this.tenphong = tenphong;
         this.hoten = hoten;
         this.maluong = maluong;
-        this.kyluat = kyluat;
         this.ghichu = ghichu;
+        this.ngaynhan = ngaynhan;
         this.LCB = LCB;
         this.PC = PC;
-        this.ngaycong = ngaycong;
+        this.Songaycong = Songaycong;
         this.thuong = thuong;
-        this.ngaynghi = ngaynghi;
+        this.Songaynghi = Songaynghi;
         this.giolamthem = giolamthem;
-        this.luong = luong;
-        this.ngaynhan = ngaynhan;
-    }
-
-    public tblNVCT(String manv, String tenphong, String hoten, String maluong, int LCB, int PC, int thuong, int kyluat, Date ngaynhan, int ngaycong, int ngaynghi, int giolamthem, int luong, String ghichu) {
-    }
-
-    public tblNVCT() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.kyluat = kyluat;
+        this.Luong = Luong;
     }
 
     public String getManv() {
@@ -76,20 +68,20 @@ public class tblNVCT {
         this.maluong = maluong;
     }
 
-    public int getKyluat() {
-        return kyluat;
-    }
-
-    public void setKyluat(int kyluat) {
-        this.kyluat = kyluat;
-    }
-
     public String getGhichu() {
         return ghichu;
     }
 
     public void setGhichu(String ghichu) {
         this.ghichu = ghichu;
+    }
+
+    public String getNgaynhan() {
+        return ngaynhan;
+    }
+
+    public void setNgaynhan(String ngaynhan) {
+        this.ngaynhan = ngaynhan;
     }
 
     public int getLCB() {
@@ -108,12 +100,12 @@ public class tblNVCT {
         this.PC = PC;
     }
 
-    public int getNgaycong() {
-        return ngaycong;
+    public int getSongaycong() {
+        return Songaycong;
     }
 
-    public void setNgaycong(int ngaycong) {
-        this.ngaycong = ngaycong;
+    public void setSongaycong(int Songaycong) {
+        this.Songaycong = Songaycong;
     }
 
     public int getThuong() {
@@ -124,12 +116,12 @@ public class tblNVCT {
         this.thuong = thuong;
     }
 
-    public int getNgaynghi() {
-        return ngaynghi;
+    public int getSongaynghi() {
+        return Songaynghi;
     }
 
-    public void setNgaynghi(int ngaynghi) {
-        this.ngaynghi = ngaynghi;
+    public void setSongaynghi(int Songaynghi) {
+        this.Songaynghi = Songaynghi;
     }
 
     public int getGiolamthem() {
@@ -140,21 +132,24 @@ public class tblNVCT {
         this.giolamthem = giolamthem;
     }
 
-    public int getLuong() {
-        return luong;
+    public int getKyluat() {
+        return kyluat;
     }
 
-    public void setLuong(int luong) {
-        this.luong = luong;
+    public void setKyluat(int kyluat) {
+        this.kyluat = kyluat;
     }
 
-    public Date getNgaynhan() {
-        return ngaynhan;
+    public float getLuong() {
+        return Luong;
     }
 
-    public void setNgaynhan(Date ngaynhan) {
-        this.ngaynhan = ngaynhan;
+    public void setLuong(float Luong) {
+        this.Luong = Luong;
     }
+    
+    
+    
 
 }
   

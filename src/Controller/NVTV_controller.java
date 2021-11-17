@@ -35,7 +35,7 @@ public class NVTV_controller {
         state=null;
         try{
         conn=DriverManager.getConnection(dbUrl);
-        sql = "Select * from TblBangCongThuViec Order By MaNVTV";
+        sql = "Select * from TblBangCongThuViec";
         state = conn.createStatement();
         ResultSet rs =state.executeQuery(sql);
         while(rs.next()){

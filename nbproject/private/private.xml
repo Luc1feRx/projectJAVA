@@ -7,14 +7,14 @@
             <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Views/BangLuong.java</file>
             <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Views/frmMain.java</file>
             <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Views/frmCoBan.java</file>
-            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Views/BangLuongNVTV.java</file>
+            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Controller/NVCT_controller.java</file>
+            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Controller/TTNS_Controllers.java</file>
             <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Views/frmLogin1.java</file>
             <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Views/frmHoSoThuViec.java</file>
-            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Controller/Luong_controller.java</file>
-            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/models/tblLuong.java</file>
-            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Controller/NVTV_controller.java</file>
+            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Controller/Connects.java</file>
+            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Views/mdiPhongBan.java</file>
+            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Controller/BoPhan_Controller.java</file>
             <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/Views/frmTangLuong.java</file>
-            <file>file:/C:/Users/tu/Documents/NetBeansProjects/QLNS/src/QLNS/QLNS.java</file>
         </group>
     </open-files>
 </project-private>

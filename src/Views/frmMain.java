@@ -560,19 +560,27 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        // TODO add your handling code here:
-        BangLuongNVTV tl = new BangLuongNVTV();
-        Desktop.add(tl);
-        tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
-        tl.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            BangLuongNVTV tl = new BangLuongNVTV();
+            Desktop.add(tl);
+            tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
+            tl.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        // TODO add your handling code here:
-        BangLuongNVCT tl = new BangLuongNVCT();
-        Desktop.add(tl);
-         tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
-         tl.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            BangLuongNVCT tl = new BangLuongNVCT();
+            Desktop.add(tl);
+            tl.setLocation((Desktop.getWidth() - tl.getWidth())/20, (Desktop.getHeight()- tl.getHeight())/20);
+            tl.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed

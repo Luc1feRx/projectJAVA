@@ -1,6 +1,11 @@
 
 package Controller;
 
+import static Controller.BoPhan_Controller.conn;
+import static Controller.BoPhan_Controller.rs;
+import static Controller.BoPhan_Controller.sql;
+import static Controller.BoPhan_Controller.state;
+import Model.tbBoPhan;
 import static QLNS.QLNS.dbUrl;
 import java.sql.Connection;
 import java.sql.Date;
@@ -13,188 +18,101 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 import models.tblNVCT;
 
 
 public class NVCT_controller {
-    public static Connection conn;
-    public static Statement state;
-    public static PreparedStatement pstate;
-    public static ResultSet rs;
+        public static Connection conn;
+    public static Statement st; 
     public static String sql;
-    public static List<tblNVCT> LayNguon() {
-        List<tblNVCT> arr = new ArrayList<>();
-        conn=null;
-        state=null;
-        try{
-        conn=DriverManager.getConnection(dbUrl);
-        sql = "Select * from TblCongKhoiDieuHanh Order By MaNV";
-        state = conn.createStatement();
-        ResultSet rs =state.executeQuery(sql);
+    public static PreparedStatement ps;
+    public static ResultSet rs;
+    public List<tblNVCT> LNV = new ArrayList<>();
+    public List<tblNVCT> LNVList(String sql) throws SQLException{
+        LNV.removeAll(LNV);
+        conn = DriverManager.getConnection(dbUrl);
+        st = conn.createStatement();
+        rs = st.executeQuery(sql);
+        tblNVCT tblNVCT;
         while(rs.next()){
-        tblNVCT temp = new tblNVCT();
-         temp.setManv(rs.getString("MaNV"));
-         temp.setTenphong(rs.getString("TenPhong"));
-         temp.setHoten(rs.getString("HoTen"));
-         temp.setMaluong(rs.getString("MaLuong"));
-         temp.setLCB(rs.getInt("LCB"));
-         temp.setPC(rs.getInt("PCChucVu"));
-         temp.setThuong(rs.getInt("Thuong"));
-         temp.setKyluat(rs.getInt("KyLuat"));
-         temp.setNgaynhan(rs.getDate("NgayNhanLuong"));
-         temp.setNgaycong(rs.getInt("SoNgayCongThang"));
-         temp.setNgaynghi(rs.getInt("SoNgayNghi"));
-         temp.setGiolamthem(rs.getInt("SoGioLamThem"));
-         temp.setLuong(rs.getInt("Luong"));
-         temp.setGhichu(rs.getString("GhiChu"));
-         arr.add(temp);
+             tblNVCT = new tblNVCT(rs.getString("MaNV"), rs.getString("TenPhong"), rs.getString("HoTen"), rs.getString("MaLuong"), 
+                     rs.getString("GhiChu"), rs.getString("NgayNhanLuong"), rs.getInt("LCB"), rs.getInt("PCChucVu"), rs.getInt("SoNgayCongThang"),
+                     rs.getInt("Thuong"), rs.getInt("SoNgayNghi"), rs.getInt("SoGioLamThem"), rs.getInt("KyLuat"), rs.getFloat("Luong"));
+             LNV.add(tblNVCT);
+        }
+        conn.close();
+        st.close();
+        return LNV;
+    }
+    
+    public void RefreshTable(String query, JTable table) throws SQLException{
+         List<tblNVCT> list = LNVList(query);
+         DefaultTableModel model = (DefaultTableModel) table.getModel();
+         Object[] row = new Object[17];
+         for(int i = 0; i < list.size(); i++){
+             row[0] = list.get(i).getManv();
+             row[1] = list.get(i).getTenphong();
+             row[2] = list.get(i).getHoten();
+             row[3] = list.get(i).getMaluong();
+             row[4] = list.get(i).getLCB();
+             row[5] = list.get(i).getPC();
+             row[6] = list.get(i).getThuong();
+             row[7] = list.get(i).getKyluat();
+             row[8] = list.get(i).getNgaynhan();
+             row[9] = list.get(i).getSongaynghi();
+             row[10] = list.get(i).getSongaycong();
+             row[11] = list.get(i).getGiolamthem();
+             row[12] = list.get(i).getLuong();
+             row[13] = list.get(i).getGhichu();
+             model.addRow(row);
+         }
+    }
+    
+    public static List<tbBoPhan> LayNguon(){
+        List<tbBoPhan> arr = new ArrayList<>();
+        conn= null;
+        state = null;
+        
+        try{
+        conn = DriverManager.getConnection(dbUrl);
+        sql="Select * From TblBoPhan Order By MaBoPhan";
+        state= (Statement) conn.createStatement();
+        rs = state.executeQuery(sql);
+        while (rs.next()){
+            tbBoPhan temp = new tbBoPhan();
+            temp.setMabophan(rs.getString("MaBoPhan"));
+            temp.setTenbophan(rs.getString("TenBoPhan"));
+            temp.setNgaythanhlap(rs.getDate("NgayThanhLap"));
+            temp.setGhichu(rs.getString("GhiChu"));
+            
+            arr.add(temp);
         }
         state.close();
+        rs.close();
         conn.close();
         }catch(SQLException ex){
-         Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
-            if(state!=null)
+            java.util.logging.Logger.getLogger(BoPhan_Controller.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        finally{
+            if(state!=null){
                 try {
                     state.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(BoPhan_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-            if(conn!=null)
-                try {
-                    conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
+            if(conn!=null){
+                    try {
+                        conn.close();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(BoPhan_Controller.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                
             }
         }
         return arr;
- }
-    
-     public static void ThemMoi(tblNVCT nvct) {
-
-        conn =  null;
-        pstate = null;
-        try {
-            conn=DriverManager.getConnection(dbUrl);
-            sql ="Insert into TblCongKhoiDieuHanh(MaNV,TenPhong,HoTen,MaLuong,LCB,PCChucVu,Thuong,"
-                    + "KyLuat,NgayNhanLuong,SoNgayCongThang,SoNgayNghi,SoGioLamThem,Luong,GhiChu)"
-                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ";
-           pstate = conn.prepareStatement(sql);
-           pstate.setString(1,  nvct.getManv());
-           pstate.setString(2, nvct.getTenphong());
-           pstate.setString(3, nvct.getHoten());
-           pstate.setString(4, nvct.getMaluong());
-           pstate.setInt(5, nvct.getLCB());
-           pstate.setInt(6, nvct.getPC());
-           pstate.setInt(7, nvct.getThuong());
-           pstate.setInt(8, nvct.getKyluat());
-           pstate.setDate(10, (Date) nvct.getNgaynhan());
-           pstate.setInt(11, nvct.getNgaycong());
-           pstate.setInt(12, nvct.getNgaynghi());
-           pstate.setInt(13, nvct.getGiolamthem());
-           pstate.setInt(14, nvct.getLuong());
-           pstate.setString(15, nvct.getGhichu());
-           pstate.execute();
-           conn.close();
-           pstate.close();
-        } catch (SQLException ex) {
-            Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(state!=null)
-                try {
-                    state.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if(conn!=null)
-                try {
-                    conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-     
-     
-     
-    public static void Sua(tblNVCT nvct, String manv, String tenphong, String hoten, String maluong, String thuong, String kyluat, String thang, String nam, String ghichu, int LCB, int PC, int PCK, int ngaycong, int ngaynghi, int giolamthem, int luong){
-        conn =  null;
-        pstate = null;
-       try {
-           conn=DriverManager.getConnection(dbUrl);
-           sql ="Update TblCongKhoiDieuHanh Set MaNV=?,TenPhong=?,HoTen=?,MaLuong=?,LCB=?,PCChucVu=?,"
-                   + "Thuong=?,KyLuat=?,NgayNhanLuong=?,SoNgayCongThang=?SoNgayNghi=?,SoGioLamThem=?,Luong=?,GhiChu=? "
-                   + "Where MaNV=?,TenPhong=?,HoTen=?,MaLuong=?,LCB=?,PCChucVu=?,Thuong=?,KyLuat=?,NgayNhanLuong=?,"
-                   + "SoNgayCongThang=?SoNgayNghi=?,SoGioLamThem=?,Luong=?,GhiChu=?";
-           pstate = conn.prepareStatement(sql);
-           pstate.setString(1,  nvct.getManv());
-           pstate.setString(2, nvct.getTenphong());
-           pstate.setString(3, nvct.getHoten());
-           pstate.setString(4, nvct.getMaluong());
-            pstate.setInt(5, nvct.getLCB());
-           pstate.setInt(6, nvct.getPC());
-           pstate.setInt(7, nvct.getThuong());
-           pstate.setInt(8, nvct.getKyluat());
-           pstate.setDate(9, (Date) nvct.getNgaynhan());      
-           pstate.setInt(10, nvct.getNgaycong());
-           pstate.setInt(11, nvct.getNgaynghi());
-           pstate.setInt(12, nvct.getGiolamthem());
-           pstate.setString(13, nvct.getGhichu()); 
-           pstate.setInt(14, nvct.getLuong());
-           pstate.execute();
-           conn.close();
-           pstate.close();
-       } catch (SQLException ex) {
-           Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-       }
-    finally{
-            if(state!=null)
-                try {
-                    state.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if(conn!=null)
-                try {
-                    conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    
-    
-    
-    public static void Xoa(String manv){
-        conn =  null;
-        pstate = null;
-              try{
-        conn = DriverManager.getConnection(dbUrl);
-        sql = "Delete From TblCongKhoiDieuHanh WHERE MaNV=?";
-        pstate = conn.prepareStatement(sql);
-        pstate.setString(1, manv);
-           
-        pstate.execute();//cau truy van
-        pstate.close();
-       conn.close();
-      }catch(SQLException ex){
-          Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-      }
-         finally{
-            if(state!=null)
-                try {
-                    state.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if(conn!=null)
-                try {
-                    conn.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(NVCT_controller.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }    
     }
     
     

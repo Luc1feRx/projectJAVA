@@ -75,8 +75,8 @@ public class Connects {
             while (rs.next()){
                 cb.addItem(rs.getString(cot));
             }
+             rs.close();
             st.close();
-            rs.close();
             conn.close();
         }
     

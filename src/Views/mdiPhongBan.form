@@ -107,7 +107,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="btKhong" min="-2" pref="102" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btKetthuc" pref="112" max="32767" attributes="0"/>
+                                  <Component id="btKetthuc" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -173,6 +173,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btThem">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/icons8_add_20px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
           </Properties>
           <Events>
@@ -181,6 +184,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btSua">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/icons8_update_20px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="S&#x1eed;a"/>
           </Properties>
           <Events>
@@ -189,6 +195,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btXoa">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/icons8_delete_20px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
           </Properties>
           <Events>
@@ -197,6 +206,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btGhi">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/icons8_save_20px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ghi"/>
           </Properties>
           <Events>
@@ -205,6 +217,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btKhong">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/icons8_no_entry_20px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Kh&#xf4;ng"/>
           </Properties>
           <Events>
@@ -213,6 +228,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="btKetthuc">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/image/icons8_close_sign_20px.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="K&#x1ebf;t th&#xfa;c"/>
           </Properties>
           <Events>

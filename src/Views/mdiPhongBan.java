@@ -118,6 +118,7 @@ public final class mdiPhongBan extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Ghi chú:");
 
+        btThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_add_20px.png"))); // NOI18N
         btThem.setText("Thêm");
         btThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +126,7 @@ public final class mdiPhongBan extends javax.swing.JInternalFrame {
             }
         });
 
+        btSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_update_20px.png"))); // NOI18N
         btSua.setText("Sửa");
         btSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,6 +134,7 @@ public final class mdiPhongBan extends javax.swing.JInternalFrame {
             }
         });
 
+        btXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_delete_20px.png"))); // NOI18N
         btXoa.setText("Xóa");
         btXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,6 +142,7 @@ public final class mdiPhongBan extends javax.swing.JInternalFrame {
             }
         });
 
+        btGhi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_save_20px.png"))); // NOI18N
         btGhi.setText("Ghi");
         btGhi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +150,7 @@ public final class mdiPhongBan extends javax.swing.JInternalFrame {
             }
         });
 
+        btKhong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_no_entry_20px.png"))); // NOI18N
         btKhong.setText("Không");
         btKhong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,6 +158,7 @@ public final class mdiPhongBan extends javax.swing.JInternalFrame {
             }
         });
 
+        btKetthuc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icons8_close_sign_20px.png"))); // NOI18N
         btKetthuc.setText("Kết thúc");
         btKetthuc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,7 +227,7 @@ public final class mdiPhongBan extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(btKhong, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btKetthuc, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)))
+                                .addComponent(btKetthuc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(10, 10, 10))))
         );
         jPanel1Layout.setVerticalGroup(

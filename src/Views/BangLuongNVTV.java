@@ -4,10 +4,20 @@
  * and open the template in the editor.
  */
 package Views;
+import static Controller.BaoHiem_Controller.pstate;
+import static Controller.BaoHiem_Controller.sql;
 import Controller.Connects;
+import static Controller.Luong_controller.pstate;
+import static Controller.Luong_controller.sql;
 import Controller.NVTV_controller;
+import static Controller.NVTV_controller.conn;
+import static Controller.NVTV_controller.pstate;
+import static Controller.NVTV_controller.sql;
+import static QLNS.QLNS.dbUrl;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,11 +26,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
+import models.tblNVTV;
 /**
  *
  * @author taihd
@@ -30,15 +42,20 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
         String macu;
         Connects cn = new Connects();
         Date date = new Date();
+        DefaultTableModel tbldanhsach;
+         public static PreparedStatement pstate;
+        List<tblNVTV> arr = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
         int currentDate= Calendar.getInstance().get(Calendar.DATE);
+        public static String sql;
     public BangLuongNVTV() throws SQLException {
          initComponents();
          KhoaMo(false);
-         cbMaNV.setSelectedIndex(-1);
+         XoaTrang();
          cn.loadcombobox(cbMaNV, "select MaNVTV from TblHoSoThuViec", 1);
+         tbldanhsach = (DefaultTableModel) TableLuongNVTV.getModel();
         cbMaNV.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -51,7 +68,30 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
                 }
             }
         });
+         calendar.set(currentYear , currentMonth , currentDate);
+         date.setTime(calendar.getTimeInMillis());
+         dateNhanLuong.setDate(date);
+        LayNguon();
     }
+    
+    public void LayNguon(){
+        arr = NVTV_controller.LayNguon();
+        tbldanhsach.setRowCount(0);
+        arr.forEach(p->{
+            tbldanhsach.addRow(new Object[]{
+                p.getTenphong(),
+                p.getManvtv(),
+                p.getLuongtv(),
+                p.getNgaynhan(),
+                p.getNgaycong(),
+                p.getNgaynghi(),
+                p.getGiolamthem(),
+                p.getLuong(),
+                p.getGhichu()
+            });
+        });
+    }
+
     
         public void XoaTrang(){
         txtTenPhong.setText("");
@@ -70,11 +110,11 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
      
     public void KhoaMo(boolean b){
         btnKhong.setEnabled(b);
-        btnThem.setEnabled(!b);
         btnSua.setEnabled(!b);
+        btnThem.setEnabled(!b);
         btnKetThuc.setEnabled(!b);
         btnGhi.setEnabled(b);
-        btnTinhLuong.setEnabled(!b);
+        btnTinhLuong.setEnabled(b);
         btnXoa.setEnabled(!b);
         txtTenPhong.setEditable(b);
         txtGioLamThem.setEditable(b);
@@ -121,7 +161,7 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TableCoBan = new javax.swing.JTable();
+        TableLuongNVTV = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnSua = new javax.swing.JButton();
         btnThem = new javax.swing.JButton();
@@ -183,6 +223,7 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
             }
         });
 
+        txtTenPhong.setEditable(false);
         txtTenPhong.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         jLabel7.setBackground(new java.awt.Color(0, 0, 0));
@@ -348,29 +389,29 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        TableCoBan.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        TableCoBan.setModel(new javax.swing.table.DefaultTableModel(
+        TableLuongNVTV.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        TableLuongNVTV.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tên bộ phận", "Tên phòng", "Mã NVTV", "Lương NVTV", "Ngày nhận lương", "Số ngày nghỉ", "Số ngày công", "Sô giờ làm thêm", "Tổng", "Ghi chú"
+                "Tên phòng", "Mã NVTV", "Lương NVTV", "Ngày nhận lương", "Số ngày nghỉ", "Số ngày công", "Sô giờ làm thêm", "Tổng", "Ghi chú"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, false, false, false, false
+                false, false, true, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        TableCoBan.addMouseListener(new java.awt.event.MouseAdapter() {
+        TableLuongNVTV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableCoBanMouseClicked(evt);
+                TableLuongNVTVMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(TableCoBan);
+        jScrollPane2.setViewportView(TableLuongNVTV);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Các chức năng", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Dialog", 0, 14))); // NOI18N
 
@@ -538,9 +579,23 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbMaNVVetoableChange
 
-    private void TableCoBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableCoBanMouseClicked
-
-    }//GEN-LAST:event_TableCoBanMouseClicked
+    private void TableLuongNVTVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableLuongNVTVMouseClicked
+        int i = TableLuongNVTV.getSelectedRow();
+        txtTenPhong.setText(TableLuongNVTV.getValueAt(i, 0).toString());
+        cbMaNV.setSelectedItem(TableLuongNVTV.getValueAt(i, 1).toString());
+        txtLuongTV.setText(TableLuongNVTV.getValueAt(i, 2).toString());
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(TableLuongNVTV.getValueAt(i, 3).toString());
+            dateNhanLuong.setDate(date);
+        } catch (ParseException ex) {
+            Logger.getLogger(frmTangLuong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        txtNgayCong.setText(TableLuongNVTV.getValueAt(i, 4).toString());
+        txtNgayNghi.setText(TableLuongNVTV.getValueAt(i, 5).toString());
+        txtGioLamThem.setText(TableLuongNVTV.getValueAt(i, 6).toString());
+        txtTong.setText(TableLuongNVTV.getValueAt(i, 7).toString());
+        txtGhiChu.setText(TableLuongNVTV.getValueAt(i, 8).toString());
+    }//GEN-LAST:event_TableLuongNVTVMouseClicked
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         if (cbMaNV.getSelectedIndex() == -1){
@@ -552,18 +607,117 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
         KhoaMo(true);
     }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-         ktThem = true;
-        KhoaMo(true);
-        XoaTrang();
-    }//GEN-LAST:event_btnThemActionPerformed
-
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-
+         if(cbMaNV.getSelectedIndex() == -1){
+             JOptionPane.showMessageDialog(this, "Không Được Để Trống Mã Nhân Viên","Thông báo", JOptionPane.WARNING_MESSAGE);
+        }else{
+            try {
+                int message = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?","Thông báo",JOptionPane.YES_NO_OPTION);
+                if(message == JOptionPane.YES_OPTION){ 
+                    conn=DriverManager.getConnection(dbUrl);
+                    sql="Delete From TblBangCongThuViec Where MaNVTV=?";
+                    pstate=conn.prepareStatement(sql);
+                    pstate.setString(1, cbMaNV.getSelectedItem().toString());
+                    pstate.execute();
+                    pstate.close();; conn.close();
+                    JOptionPane.showMessageDialog(this, "Xóa thành công!!!","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    DefaultTableModel model = (DefaultTableModel) TableLuongNVTV.getModel();
+                    model.setRowCount(0);
+                     LayNguon();
+                }else{
+                    return;
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(frmCoBan.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "Xóa thất bại!!!","Thông báo", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnGhiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiActionPerformed
+        if(ktThem == true){
+                        try {
+                if(txtLuongTV.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập Lương ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                    return;
+                }else if(txtNgayNghi.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập số ngày nghỉ ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                }else if(txtNgayCong.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập số ngày công","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                }else if(txtGioLamThem.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập số giờ làm thêm","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                }else if(txtTong.getText().length()<=0){
+                      JOptionPane.showMessageDialog(this,"Bạn chưa tính lương","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                }else{
+                    conn=DriverManager.getConnection(dbUrl);
+                    sql ="Insert into TblBangCongThuViec(TenPhong,MaNVTV,LuongTViec,"
+                    + "NgayNhanLuong,SoNgayCong,SoNgayNghi,SoGioLamThem,Luong,GhiChu)"
+                    + " values (?,?,?,?,?,?,?,?,?) ";
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                   pstate = conn.prepareStatement(sql);
+                   pstate.setString(1, txtTenPhong.getText());
+                   pstate.setString(2,  cbMaNV.getSelectedItem().toString());
+                   pstate.setString(3, txtLuongTV.getText());
+                   String d = sdf.format(dateNhanLuong.getDate());
+                   pstate.setString(4, d);
+                   pstate.setString(5,  txtNgayCong.getText());
+                   pstate.setString(6, txtNgayNghi.getText());
+                   pstate.setString(7, txtGioLamThem.getText());
+                   pstate.setString(8, txtTong.getText());
+                   pstate.setString(9, txtGhiChu.getText());
+                   pstate.execute();
+                   conn.close();
+                   pstate.close();
+                   JOptionPane.showMessageDialog(this, "Thêm thành công!!!","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                   DefaultTableModel model = (DefaultTableModel) TableLuongNVTV.getModel();
+                   model.setRowCount(0);
+                   LayNguon();
+                }
 
+            } catch (SQLException ex) {
+                 JOptionPane.showMessageDialog(this, "Thêm thất bại!!!","Thông báo", JOptionPane.ERROR_MESSAGE);
+                Logger.getLogger(BangLuong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+                 if(txtLuongTV.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập Lương ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                    return;
+                }else if(txtNgayNghi.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập số ngày nghỉ ","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                }else if(txtNgayCong.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập số ngày công","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                }else if(txtGioLamThem.getText().length()<=0){
+                    JOptionPane.showMessageDialog(this,"Bạn chưa nhập số giờ làm thêm","Thông Báo",JOptionPane.WARNING_MESSAGE);
+                }else{
+                     try {
+                         conn=DriverManager.getConnection(dbUrl);
+                         sql ="UPDATE TblBangCongThuViec SET TenPhong=?, LuongTViec=?,NgayNhanLuong=?, SoNgayCong=?, SoNgayNghi=?, SoGioLamThem=?, Luong=?, GhiChu=? WHERE MaNVTV=?";
+                         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                         pstate = conn.prepareStatement(sql);
+                         pstate.setString(1, txtTenPhong.getText());
+                         pstate.setString(2, txtLuongTV.getText());
+                         String d = sdf.format(dateNhanLuong.getDate());
+                         pstate.setString(3,  d);
+                         pstate.setString(4, txtNgayCong.getText());
+                         pstate.setString(5, txtNgayNghi.getText());
+                         pstate.setString(6, txtGioLamThem.getText());
+                         pstate.setString(7, txtTong.getText());
+                         pstate.setString(8, txtGhiChu.getText());
+                         pstate.setString(9, macu);
+                         pstate.execute();
+                         conn.close();
+                         pstate.close();
+                          JOptionPane.showMessageDialog(this, "Sửa thành công!!!","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                           DefaultTableModel model = (DefaultTableModel) TableLuongNVTV.getModel();
+                           model.setRowCount(0);
+                           LayNguon();
+                     } catch (SQLException ex) {
+                           JOptionPane.showMessageDialog(this, "Sửa thất bại!!!","Thông báo", JOptionPane.ERROR_MESSAGE);
+                         Logger.getLogger(BangLuongNVTV.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                }
+        }
     }//GEN-LAST:event_btnGhiActionPerformed
 
     private void btnKhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhongActionPerformed
@@ -571,19 +725,33 @@ public final class BangLuongNVTV extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnKhongActionPerformed
 
     private void btnKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucActionPerformed
-
+        int exit = JOptionPane.showConfirmDialog(this, "Bạn có muốn kết thúc không?","Thông báo",JOptionPane.YES_NO_OPTION);
+        if(exit == JOptionPane.YES_OPTION)
+        dispose();
     }//GEN-LAST:event_btnKetThucActionPerformed
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
         // TODO add your handling code here:
+        int l = Integer.parseInt(txtLuongTV.getText());
+        int nc = Integer.parseInt(txtNgayCong.getText());
+        int lt = Integer.parseInt(txtGioLamThem.getText());
+        float luong = ((l / 26) * nc + (lt * 40000));
+        String TongLuong = String.valueOf(luong);
+        txtTong.setText(TongLuong);
     }//GEN-LAST:event_btnTinhLuongActionPerformed
+
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        ktThem = true;
+        KhoaMo(true);
+        XoaTrang();
+    }//GEN-LAST:event_btnThemActionPerformed
 
   
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TableCoBan;
+    private javax.swing.JTable TableLuongNVTV;
     private javax.swing.JButton btnGhi;
     private javax.swing.JButton btnKetThuc;
     private javax.swing.JButton btnKhong;
