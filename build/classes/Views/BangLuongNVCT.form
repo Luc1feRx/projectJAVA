@@ -394,6 +394,9 @@
               <Font name="Dialog" size="14" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNgayNghiKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
@@ -422,6 +425,9 @@
               <Font name="Dialog" size="14" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtThuongKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtGhiChu">
           <Properties>
@@ -488,6 +494,9 @@
               <Font name="Dialog" size="14" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPCKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTong">
           <Properties>
@@ -503,6 +512,9 @@
               <Font name="Dialog" size="14" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNgayCongKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtGioLamThem">
           <Properties>
@@ -510,6 +522,9 @@
               <Font name="Dialog" size="14" style="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtGioLamThemKeyTyped"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbMaNV">
           <AuxValues>

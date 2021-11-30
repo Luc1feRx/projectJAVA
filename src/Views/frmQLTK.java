@@ -63,6 +63,7 @@ public class frmQLTK extends javax.swing.JInternalFrame {
         txtUsername.setText("");
         txtPass.setText("");
         txtName.setText("");
+        ComboBoxQuyen.setSelectedIndex(-1);
     }
     
     @SuppressWarnings("unchecked")
@@ -83,7 +84,6 @@ public class frmQLTK extends javax.swing.JInternalFrame {
         txtUsername = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtPass = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         ComboBoxQuyen = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -91,6 +91,7 @@ public class frmQLTK extends javax.swing.JInternalFrame {
         txtTimKiem = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtCount = new javax.swing.JTextField();
+        txtPass = new javax.swing.JPasswordField();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -222,8 +223,6 @@ public class frmQLTK extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel3.setText("Mật khẩu:");
 
-        txtPass.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Quyền:");
 
@@ -263,10 +262,6 @@ public class frmQLTK extends javax.swing.JInternalFrame {
                 .addGap(44, 44, 44)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(21, 21, 21)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(60, 60, 60)
                         .addComponent(jLabel4)
                         .addGap(20, 20, 20)
@@ -279,10 +274,7 @@ public class frmQLTK extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(40, 40, 40)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(21, 21, 21)
-                                .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel3)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
@@ -290,7 +282,13 @@ public class frmQLTK extends javax.swing.JInternalFrame {
                                         .addGap(90, 90, 90)
                                         .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCount, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtCount, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtPass)
+                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -300,11 +298,11 @@ public class frmQLTK extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(29, 29, 29)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(ComboBoxQuyen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -324,7 +322,6 @@ public class frmQLTK extends javax.swing.JInternalFrame {
         jPanel4.setBackground(new java.awt.Color(51, 255, 51));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 35)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Quản lý tài khoản");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -432,6 +429,7 @@ public class frmQLTK extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         ktThem = false;
         KhoaMo(false);
+        XoaTrang();
     }//GEN-LAST:event_btnKhongActionPerformed
 
     
@@ -556,7 +554,7 @@ public class frmQLTK extends javax.swing.JInternalFrame {
     private javax.swing.JTable tableQLTK;
     private javax.swing.JTextField txtCount;
     private javax.swing.JTextField txtName;
-    private javax.swing.JTextField txtPass;
+    private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtTimKiem;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

@@ -1083,9 +1083,6 @@ public class frmCoBan extends javax.swing.JInternalFrame {
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         // TODO add your handling code here:
-        if(txtMaNV.getText().isEmpty()){
-            JOptionPane.showMessageDialog(this, "Bạn chưa nhập Mã nhân viên","Thông báo", JOptionPane.INFORMATION_MESSAGE);
-        }else{
             try {
                 String delete = "delete from TblTTNVCoBan where MaNV=N'" + txtMaNV.getText() + "'";
                 int message = JOptionPane.showConfirmDialog(this, "Bạn có muốn xóa không?","Thông báo",JOptionPane.YES_NO_OPTION);
@@ -1101,6 +1098,7 @@ public class frmCoBan extends javax.swing.JInternalFrame {
                 
                     String deleteBH = "delete from TblSoBH where MaNV=N'" + txtMaNV.getText() + "'";
                     cn.MakeConnect(deleteBH);
+                    XoaTrang();
                 }else{
                     return;
                 }
@@ -1110,7 +1108,6 @@ public class frmCoBan extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Xóa thất bại!!!","Thông báo", JOptionPane.ERROR_MESSAGE);
             }
             
-        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void btnKetThucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKetThucActionPerformed

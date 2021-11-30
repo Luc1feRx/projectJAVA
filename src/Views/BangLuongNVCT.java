@@ -273,6 +273,11 @@ public final class BangLuongNVCT extends javax.swing.JInternalFrame {
         jLabel14.setText("Số giờ làm thêm");
 
         txtNgayNghi.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtNgayNghi.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNgayNghiKeyTyped(evt);
+            }
+        });
 
         jLabel17.setBackground(new java.awt.Color(0, 0, 0));
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -284,6 +289,11 @@ public final class BangLuongNVCT extends javax.swing.JInternalFrame {
         dateNhanLuong.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         txtThuong.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtThuong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtThuongKeyTyped(evt);
+            }
+        });
 
         txtGhiChu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -311,13 +321,28 @@ public final class BangLuongNVCT extends javax.swing.JInternalFrame {
         jLabel22.setText("Tổng");
 
         txtPC.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtPC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPCKeyTyped(evt);
+            }
+        });
 
         txtTong.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtTong.setEnabled(false);
 
         txtNgayCong.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtNgayCong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNgayCongKeyTyped(evt);
+            }
+        });
 
         txtGioLamThem.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtGioLamThem.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtGioLamThemKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -662,15 +687,15 @@ public final class BangLuongNVCT extends javax.swing.JInternalFrame {
         txtPC.setText(tableLNV.getValueAt(i, 5).toString());
         txtThuong.setText(tableLNV.getValueAt(i, 6).toString());
         txtKyLuat.setText(tableLNV.getValueAt(i, 7).toString());
-        txtNgayNghi.setText(tableLNV.getValueAt(i, 9).toString());
-        txtNgayCong.setText(tableLNV.getValueAt(i, 10).toString());
-        txtGioLamThem.setText(tableLNV.getValueAt(i, 11).toString());
-        try {
+                try {
             Date date = new SimpleDateFormat("yyyy-MM-dd").parse(tableLNV.getValueAt(i, 8).toString());
             dateNhanLuong.setDate(date);
         } catch (ParseException ex) {
             Logger.getLogger(frmTangLuong.class.getName()).log(Level.SEVERE, null, ex);
         }
+        txtNgayNghi.setText(tableLNV.getValueAt(i, 9).toString());
+        txtNgayCong.setText(tableLNV.getValueAt(i, 10).toString());
+        txtGioLamThem.setText(tableLNV.getValueAt(i, 11).toString());
         txtTong.setText(tableLNV.getValueAt(i, 12).toString());
         txtGhiChu.setText(tableLNV.getValueAt(i, 13).toString());
     }//GEN-LAST:event_tableLNVMouseClicked
@@ -790,6 +815,44 @@ public final class BangLuongNVCT extends javax.swing.JInternalFrame {
         String TongLuong = String.valueOf(luong);
         txtTong.setText(TongLuong);
     }//GEN-LAST:event_btnTinhLuongActionPerformed
+
+    private void txtPCKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPCKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPCKeyTyped
+
+    private void txtThuongKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtThuongKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_txtThuongKeyTyped
+
+    private void txtNgayNghiKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNgayNghiKeyTyped
+        // TODO add your handling code here:
+                char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNgayNghiKeyTyped
+
+    private void txtNgayCongKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNgayCongKeyTyped
+        // TODO add your handling code here:
+                char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNgayCongKeyTyped
+
+    private void txtGioLamThemKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtGioLamThemKeyTyped
+        // TODO add your handling code here:
+                char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtGioLamThemKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

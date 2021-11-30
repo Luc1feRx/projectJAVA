@@ -51,18 +51,18 @@ public class frmHoSoThuViec extends javax.swing.JInternalFrame {
     Connects cn = new Connects();
     public byte[] person_image = null;
     HSTV_Controllers hstv = new HSTV_Controllers();
+    
+                    Date date = new Date();
+            Calendar calendar = Calendar.getInstance();
+            int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+            int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+            int currentDate= Calendar.getInstance().get(Calendar.DATE);
     public frmHoSoThuViec() throws SQLException {
         initComponents();
         cn.loadcombobox(ComboxBoxMaPhong, "select MaPhong from TblPhongBan", 1);
         hstv.RefreshTable("select * from TblHoSoThuViec", tableHSTV);
         KhoaMo(false);
         //set date = thời gian hiện tại
-            Date date = new Date();
-            Calendar calendar = Calendar.getInstance();
-            int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-            int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-            int currentDate= Calendar.getInstance().get(Calendar.DATE);
-            calendar.set(currentYear , currentMonth , currentDate);
             date.setTime(calendar.getTimeInMillis());
             
             DateBirth.setDate(date);
@@ -516,10 +516,24 @@ public class frmHoSoThuViec extends javax.swing.JInternalFrame {
         DateNgayTV.setEnabled(b);
     }
     
+        public void XoaTrang(){
+            ComboxBoxMaPhong.setSelectedIndex(-1);
+            txtMaNV.setText("");
+            ComboBoxGioiTinh.setSelectedIndex(-1);
+            txtHoTen.setText("");
+            txtDiaChi.setText("");
+            calendar.set(currentYear , currentMonth , currentDate);
+            date.setTime(calendar.getTimeInMillis());
+            
+            DateBirth.setDate(date);
+            DateNgayTV.setDate(date);
+        }
+    
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
         ktThem=true;
         KhoaMo(true);
+        XoaTrang();
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -576,6 +590,7 @@ public class frmHoSoThuViec extends javax.swing.JInternalFrame {
                     model.setRowCount(0);
                     hstv.RefreshTable("select * from TblHoSoThuViec", tableHSTV);
                     JOptionPane.showMessageDialog(this, "Xóa thành công!!!","Thông báo", JOptionPane.INFORMATION_MESSAGE);
+                    XoaTrang();
             }
         } catch (SQLException ex) {
             Logger.getLogger(frmHoSoThuViec.class.getName()).log(Level.SEVERE, null, ex);
